@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}</ProjectGuid>
+    <ProjectGuid>{3DEE08B8-7145-45EE-ACD6-07EE8496FCDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AuctionTask.Data</RootNamespace>
-    <AssemblyName>AuctionTask.Data</AssemblyName>
+    <RootNamespace>AuctionTask.Services</RootNamespace>
+    <AssemblyName>AuctionTask.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,35 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuctionTaskDbContext.cs" />
-    <Compile Include="Migrations\202001261121092_AddProductsAndbidderTables.cs" />
-    <Compile Include="Migrations\202001261121092_AddProductsAndbidderTables.Designer.cs">
-      <DependentUpon>202001261121092_AddProductsAndbidderTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001261212381_RelationshipBetweenProductsAndBidders.cs" />
-    <Compile Include="Migrations\202001261212381_RelationshipBetweenProductsAndBidders.Designer.cs">
-      <DependentUpon>202001261212381_RelationshipBetweenProductsAndBidders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="BidderServices.cs" />
+    <Compile Include="ProductServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\AuctionTask.Data\AuctionTask.Data.csproj">
+      <Project>{6af93cea-da18-4cc6-89f6-8cc919b2a30d}</Project>
+      <Name>AuctionTask.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AuctionTask.Entities\AuctionTask.Entities.csproj">
       <Project>{c45dd454-c706-45ac-a859-e469965443ad}</Project>
       <Name>AuctionTask.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001261121092_AddProductsAndbidderTables.resx">
-      <DependentUpon>202001261121092_AddProductsAndbidderTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001261212381_RelationshipBetweenProductsAndBidders.resx">
-      <DependentUpon>202001261212381_RelationshipBetweenProductsAndBidders.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

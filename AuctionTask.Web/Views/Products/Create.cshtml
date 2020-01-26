@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<div id="product">
+    <h2>New Product</h2>
+
+    <form id="newAuction">
+        <div class="form-group">
+            <label for="ProductName">Product Name</label>
+            <input type="text" class="form-control" name="ProductName" id="ProductName" />
+        </div>
+
+        <div class="form-group">
+            <label for="ActualPrice">Start Price</label>
+            <input type="number" class="form-control" name="ActualPrice" id="ActualPrice" />
+        </div>
+       
+        <button type="button" class="btn btn-success" id="saveAuction">Save</button>
+    </form>
+</div>
+
+<div id="bidders" hidden>
+    <h2>Assign bidders</h2>
+
+    <form id="addBidders">
+        <div class="form-group">
+            <label>Bidders</label>
+            <input type="text" class="form-control" id="BidderName" />
+            <input type="hidden" name="BiddersList" id="biddersList" value="" />
+            <div id="biddersNames">
+            </div>
+        </div>
+
+        <input type="hidden" id="productId" />
+
+        <button type="button" class="btn btn-success" id="assignBidders">Save</button>
+    </form>
+</div>
+
+@section scripts
+{
+    <script>
+        $("#saveAuction").click(function () {
+            $.ajax({
+                url: '@Url.Action("Create","Products")',
+                type: 'Post',
+                data: $("#newAuction").serialize(),
+            }).done(function (response) {
+                if (response.success) {
+                    $("#productId").val(response.id);
+                    $("#product").hide();
+                    $("#bidders").show();
+                } else {
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Something went wrong.", "error");
+            });
+        })
+
+        $("#addBidders").keypress(function (event) {
+            var bidders = [];
+
+            if (event.keyCode == 13) {
+
+                var bidderName = $("#BidderName");
+                $("#biddersNames").append("-" + bidderName.val() + "</br>")
+
+                var existingCookieData = $.cookie('Bidders');
+                if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+                    bidders = existingCookieData.split('-')
+                }
+
+                bidders.push(bidderName.val());
+                $.cookie('Bidders', bidders.join('-'), { expires: 1, path: '/' }); // { path: '/'} to allow cookie in others controllers
+
+                bidderName.val('');
+                return false;
+            }
+        })
+
+        $("#assignBidders").click(function () {
+            $.ajax({
+                url: '@Url.Action("Add","Bidders")',
+                type: 'Post',
+                data: {
+                    productId: $("#productId").val()
+                }
+            }).done(function (response) {
+                if (response.success) {
+                    $.removeCookie('Bidders', { path: '/' });
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Something went wrong.", "error");
+            });
+        })
+
+    </script>
+}

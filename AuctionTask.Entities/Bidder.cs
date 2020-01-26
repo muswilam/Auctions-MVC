@@ -14,5 +14,8 @@ namespace AuctionTask.Entities
         [Required]
         [StringLength(255)]
         public string FullName { get; set; }
+
+        public Product Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
