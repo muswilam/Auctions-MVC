@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionTask.Entities", "AuctionTask.Entities\AuctionTask.Entities.csproj", "{C45DD454-C706-45AC-A859-E469965443AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionTask.Data", "AuctionTask.Data\AuctionTask.Data.csproj", "{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C45DD454-C706-45AC-A859-E469965443AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45DD454-C706-45AC-A859-E469965443AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45DD454-C706-45AC-A859-E469965443AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45DD454-C706-45AC-A859-E469965443AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF93CEA-DA18-4CC6-89F6-8CC919B2A30D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
