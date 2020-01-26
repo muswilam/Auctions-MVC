@@ -82,6 +82,7 @@
         })
 
         $("#assignBidders").click(function () {
+            debugger;
             $.ajax({
                 url: '@Url.Action("Add","Bidders")',
                 type: 'Post',
@@ -91,7 +92,7 @@
             }).done(function (response) {
                 if (response.success) {
                     $.removeCookie('Bidders', { path: '/' });
-                    location.reload();
+                   window.location.href = "/Bids/Index?productId=" + $("#productId").val();
                 } else {
                     alert(response.message);
                 }

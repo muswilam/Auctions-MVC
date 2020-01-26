@@ -58,6 +58,18 @@
     <Compile Include="Migrations\202001261212381_RelationshipBetweenProductsAndBidders.Designer.cs">
       <DependentUpon>202001261212381_RelationshipBetweenProductsAndBidders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001261656074_BidsTable.cs" />
+    <Compile Include="Migrations\202001261656074_BidsTable.Designer.cs">
+      <DependentUpon>202001261656074_BidsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001261851404_AddLastBidAmount.cs" />
+    <Compile Include="Migrations\202001261851404_AddLastBidAmount.Designer.cs">
+      <DependentUpon>202001261851404_AddLastBidAmount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.cs" />
+    <Compile Include="Migrations\202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.Designer.cs">
+      <DependentUpon>202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +89,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001261212381_RelationshipBetweenProductsAndBidders.resx">
       <DependentUpon>202001261212381_RelationshipBetweenProductsAndBidders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001261656074_BidsTable.resx">
+      <DependentUpon>202001261656074_BidsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001261851404_AddLastBidAmount.resx">
+      <DependentUpon>202001261851404_AddLastBidAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.resx">
+      <DependentUpon>202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

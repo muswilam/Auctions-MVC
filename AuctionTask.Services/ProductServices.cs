@@ -1,5 +1,6 @@
 ﻿using AuctionTask.Data;
 using AuctionTask.Entities;
+using System.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,11 @@ namespace AuctionTask.Services
             _context.SaveChanges();
 
             return product.Id;
+        }
+
+        public Product GetProduct(int id)
+        {
+             return _context.Products.Include(p => p.Bidders).Where(p => p.Id == id).FirstOrDefault();
         }
     }
 }

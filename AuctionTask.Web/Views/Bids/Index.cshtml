@@ -1,0 +1,79 @@
+﻿@model BidViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="bidProcess">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Product Name: @Model.Product.ProductName</h2>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-danger">Price: @Model.Product.ActualPrice$</h2>
+        </div>
+
+    </div>
+
+    <form id="newBid">
+
+        <div class="form-group">
+            <label>Bidder</label>
+            <select class="form-control" name="BidderId">
+                @foreach (var bidder in Model.ProductBidders)
+                {
+                    <option value="@bidder.Id">@bidder.FullName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Bid</label>
+            <input type="number" id="BidAmount" name="BidAmount" class="form-control" />
+        </div>
+
+        <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+        <input type="hidden" name="ActualAmount" value="@Model.Product.ActualPrice" />
+
+        <button type="button" class="btn btn-success" id="addBid">Add</button>
+    </form>
+</div>
+
+<div id="bidsTable">
+    @{Html.RenderAction("Listing", "Bids", new { productId = Model.Product.Id}); }
+</div>
+
+@section scripts
+{
+    <script>
+        $("#addBid").click(function () {
+            $.ajax({
+                url: '@Url.Action("Bid", "Bids")',
+                type: 'Post',
+                data: $("#newBid").serialize()
+            })
+            .done(function (response) {
+                if (response.success) {
+                    GetBids();
+                }
+            })
+            .fail(function () {
+                alert("Something went wrong!");
+            })
+        })
+
+        function GetBids() {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("Listing", "Bids")',
+                type: 'Get',
+                data: {
+                    productId: '@Model.Product.Id'
+                }
+            })
+            .done(function (response) {
+                $("#bidsTable").html(response);
+            })
+        }
+    </script>
+}

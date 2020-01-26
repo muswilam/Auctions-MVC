@@ -1,0 +1,26 @@
+﻿@model ListBidsViewModel
+
+@if (Model.Bids != null && Model.Bids.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Starting Price</th>
+                <th>Bidder</th>
+                <th>Bid</th>
+                <th>Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bid in Model.Bids)
+                {
+                <tr>
+                    <td>@Model.Product.ActualPrice</td>
+                    <td>@bid.Bidder.FullName</td>
+                    <td>@bid.TotalLastBidAmount</td>
+                    <td>@bid.BidAmount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -17,5 +17,6 @@ namespace AuctionTask.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Bidder> Bidders { get; set; }
+        public DbSet<Bid> Bids { get; set; }
     }
 }
