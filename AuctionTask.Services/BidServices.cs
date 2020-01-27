@@ -50,7 +50,7 @@ namespace AuctionTask.Services
             if (bids != null && bids.Count() > 0)
             {
                 var lastBid = bids.ToList().OrderByDescending(b => b.Id).Where(b => b.ProductId == prodectId).FirstOrDefault();
-                return lastBid != null ? lastBid.TotalLastBidAmount : 0;
+                return lastBid != null ? lastBid.TotalBidAmount : 0;
             }
 
             return 0;

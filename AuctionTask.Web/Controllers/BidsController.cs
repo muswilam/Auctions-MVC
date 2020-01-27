@@ -59,9 +59,9 @@ namespace AuctionTask.Web.Controllers
 
             var lastBidAmount = BidServices.Instance.GetTotalLastBidAmount(bidViewModel.ProductId);
             if (lastBidAmount > 0)
-                newBid.TotalLastBidAmount = lastBidAmount + bidViewModel.BidAmount;
+                newBid.TotalBidAmount = lastBidAmount + bidViewModel.BidAmount;
             else
-                newBid.TotalLastBidAmount = bidViewModel.BidAmount + bidViewModel.ActualAmount;
+                newBid.TotalBidAmount = bidViewModel.BidAmount + bidViewModel.ActualAmount;
 
             var result = BidServices.Instance.AddBid(newBid);
 
@@ -83,7 +83,7 @@ namespace AuctionTask.Web.Controllers
 
             var winnerName = winnerBid.Bidder.FullName;
 
-            var winnerPrice = (winnerBid.TotalLastBidAmount);
+            var winnerPrice = (winnerBid.TotalBidAmount);
 
             json.Data = new { winnerName = winnerName, winnerPrice = winnerPrice };
 

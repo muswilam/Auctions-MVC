@@ -11,7 +11,7 @@ namespace AuctionTask.Entities
         public int Id { get; set; }
 
         public decimal BidAmount { get; set; }
-        public decimal TotalLastBidAmount { get; set; }
+        public decimal TotalBidAmount { get; set; }
 
         public int ProductId { get; set; }
         public Product Product { get; set; }
