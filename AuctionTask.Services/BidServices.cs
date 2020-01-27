@@ -45,7 +45,7 @@ namespace AuctionTask.Services
 
         public decimal GetTotalLastBidAmount(int prodectId)
         {
-            var bids  = _context.Bids.Include(b => b.Product);
+            var bids = _context.Bids.Include(b => b.Product);
 
             if (bids != null && bids.Count() > 0)
             {

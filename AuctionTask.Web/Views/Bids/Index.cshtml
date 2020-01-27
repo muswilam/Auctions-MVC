@@ -14,11 +14,16 @@
 </div>
 
 <div id="bidProcess">
-    <div id="bid">
-        @{ Html.RenderAction("NewBid", "Bids", Model); }
+    <div class="row">
+        <div class="col-md-6">
+            <div id="bid">
+                @{ Html.RenderAction("NewBid", "Bids", Model); }
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-warning h3" id="counter"></div>
+        </div>
     </div>
-
-    <div id="counter"></div>
 </div>
 
 <div id="winnerBid" hidden>
@@ -33,6 +38,7 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-success" id="saveAuction">Save Auction</button>
 </div>
 
 <div id="bidsTable">
@@ -42,7 +48,6 @@
 @section scripts
 {
     <script>
-
         $("#addBid").click(function () {
             $.ajax({
                 url: '@Url.Action("Bid", "Bids")',
@@ -51,6 +56,7 @@
             })
             .done(function (response) {
                 if (response.success) {
+                    $("#BidAmount").val('');
                     stopTimer();
                     timer();
                     GetBids();
@@ -77,14 +83,38 @@
             })
         }
 
-        var timerValue;
+        $("#saveAuction").click(function () {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("Save", "Auctions")',
+                type: 'Post',
+                data: {
+                    WinnerName: $("#winnerName").text(),
+                    ProductName: '@Model.Product.ProductName',
+                    ProductActualPrice: '@Model.Product.ActualPrice',
+                    WinnerPrice: $("#winnerPrice").text()
+                }
+            })
+            .done(function (response) {
+                if (response.success) {
+                    window.location.href = "/Products/Create"
+                } else {
+                    alert(response.message);
+                }
+            })
+            .fail(function () {
+                alert("Something went wrong!");
+            })
+        })
 
+        var timerValue;
+        //Timer counter.
         function timer() {
             $(function () {
-                var defaultTimer = 15, // Default amount of seconds if url variable is not found
+                var defaultTimer = 15, 
                     callback = function () {
-                        // Will be executed when the timer finishes
-                        $("#bid").hide();
+                        // ajax call to get winner
+                        $("#bidProcess").hide();
                         $.ajax({
                             url: '@Url.Action("WinnerBid", "Bids", new { productId = Model.Product.Id})',
                             type: 'Get'

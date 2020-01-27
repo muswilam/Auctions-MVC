@@ -11,11 +11,6 @@ namespace AuctionTask.Web.Controllers
 {
     public class ProductsController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Create()
         {

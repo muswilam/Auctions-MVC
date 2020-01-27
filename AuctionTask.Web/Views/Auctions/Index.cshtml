@@ -1,0 +1,39 @@
+﻿@model AuctionsViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Auctions</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Winner Bidder</th>
+            <th>Start Price</th>
+            <th>Final Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.Auctions != null && Model.Auctions.Count() > 0)
+        {
+            foreach (var auction in Model.Auctions)
+            {
+                <tr>
+                    <td>@auction.ProductName</td>
+                    <td>@auction.WinnerName</td>
+                    <td>@auction.ProductActualPrice</td>
+                    <td>@auction.WinnerPrice</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-danger"><h3>No auctions created yet.</h3></td>
+            </tr>
+        }
+    </tbody>
+</table>

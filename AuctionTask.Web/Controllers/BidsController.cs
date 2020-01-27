@@ -73,7 +73,8 @@ namespace AuctionTask.Web.Controllers
             return json;
         }
 
-        public ActionResult WinnerBid(int productId)
+        [HttpGet]
+        public JsonResult WinnerBid(int productId)
         {
             var json = new JsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -82,7 +83,7 @@ namespace AuctionTask.Web.Controllers
 
             var winnerName = winnerBid.Bidder.FullName;
 
-            var winnerPrice = (winnerBid.TotalLastBidAmount + winnerBid.BidAmount);
+            var winnerPrice = (winnerBid.TotalLastBidAmount);
 
             json.Data = new { winnerName = winnerName, winnerPrice = winnerPrice };
 

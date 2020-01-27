@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuctionServices.cs" />
     <Compile Include="BidderServices.cs" />
     <Compile Include="BidServices.cs" />
     <Compile Include="ProductServices.cs" />

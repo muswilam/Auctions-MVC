@@ -70,6 +70,10 @@
     <Compile Include="Migrations\202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.Designer.cs">
       <DependentUpon>202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001271139515_AuctionsTable.cs" />
+    <Compile Include="Migrations\202001271139515_AuctionsTable.Designer.cs">
+      <DependentUpon>202001271139515_AuctionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.resx">
       <DependentUpon>202001262005589_ChangeLastBidAmountNameToTotalLastBidAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001271139515_AuctionsTable.resx">
+      <DependentUpon>202001271139515_AuctionsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
