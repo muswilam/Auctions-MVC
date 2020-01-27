@@ -17,5 +17,7 @@ namespace AuctionTask.Entities
 
         public Product Product { get; set; }
         public int ProductId { get; set; }
+
+        public List<Bid> Bids { get; set; }
     }
 }

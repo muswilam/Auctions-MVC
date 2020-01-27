@@ -49,11 +49,21 @@ namespace AuctionTask.Services
 
             if (bids != null && bids.Count() > 0)
             {
-                var lastBid = bids.ToList().OrderByDescending(b => b.Id).FirstOrDefault();
-                return lastBid.TotalLastBidAmount;
+                var lastBid = bids.ToList().OrderByDescending(b => b.Id).Where(b => b.ProductId == prodectId).FirstOrDefault();
+                return lastBid != null ? lastBid.TotalLastBidAmount : 0;
             }
 
             return 0;
+        }
+
+        public Bid GetWinnerBid(int productId)
+        {
+            return _context.Bids
+                    .Include(b => b.Bidder)
+                    .Include(b => b.Product)
+                    .Where(b => b.ProductId == productId)
+                    .OrderByDescending(b => b.Id)
+                    .FirstOrDefault();
         }
     }
 }

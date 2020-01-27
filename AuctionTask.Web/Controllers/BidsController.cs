@@ -11,7 +11,7 @@ namespace AuctionTask.Web.Controllers
 {
     public class BidsController : Controller
     {
-        public ActionResult Index(int productId)
+        public ActionResult Index(int productId,BidViewModel viewModel)
         {
             var bidViewModel = new BidViewModel();
        
@@ -35,10 +35,22 @@ namespace AuctionTask.Web.Controllers
             return PartialView("_Listing", listBides);
         }
 
+        public ActionResult NewBid(BidViewModel bidViewModel)
+        {
+            return PartialView("_Bid", bidViewModel);
+        }
+
         [HttpPost]
         public JsonResult Bid(NewBidViewModel bidViewModel)
         {
             var json = new JsonResult();
+
+            if(bidViewModel.BidAmount == 0)
+            {
+                json.Data = new { success = false, message = "No bid amount specified." };
+                return json;
+            }
+
             var newBid = new Bid();
 
             newBid.ProductId = bidViewModel.ProductId;
@@ -57,6 +69,22 @@ namespace AuctionTask.Web.Controllers
                 json.Data = new { success = true };
             else
                 json.Data = new { success = false, message = "Can't add bid!" };
+
+            return json;
+        }
+
+        public ActionResult WinnerBid(int productId)
+        {
+            var json = new JsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            var winnerBid = BidServices.Instance.GetWinnerBid(productId);
+
+            var winnerName = winnerBid.Bidder.FullName;
+
+            var winnerPrice = (winnerBid.TotalLastBidAmount + winnerBid.BidAmount);
+
+            json.Data = new { winnerName = winnerName, winnerPrice = winnerPrice };
 
             return json;
         }

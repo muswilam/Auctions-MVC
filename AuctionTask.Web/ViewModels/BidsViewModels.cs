@@ -9,9 +9,7 @@ namespace AuctionTask.Web.ViewModels
     public class BidViewModel
     {
         public Product Product { get; set; }
-
         public List<Bidder> ProductBidders { get; set; }
-
         public List<Bid> Bids { get; set; }
     }
 

@@ -30,6 +30,7 @@ namespace AuctionTask.Web.Controllers
 
             newwProduct.ProductName = productViewModel.ProductName;
             newwProduct.ActualPrice = productViewModel.ActualPrice;
+            newwProduct.Bidders = new List<Bidder>();
 
             var productId = ProductServices.Instance.AddProduct(newwProduct);
 

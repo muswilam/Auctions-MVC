@@ -4,48 +4,45 @@
     ViewBag.Title = "Index";
 }
 
-<div id="bidProcess">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Product Name: @Model.Product.ProductName</h2>
-        </div>
-        <div class="col-md-6">
-            <h2 class="text-danger">Price: @Model.Product.ActualPrice$</h2>
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Product Name: @Model.Product.ProductName</h2>
+    </div>
+    <div class="col-md-6">
+        <h2 class="text-danger">Price: @Model.Product.ActualPrice$</h2>
+    </div>
+</div>
 
+<div id="bidProcess">
+    <div id="bid">
+        @{ Html.RenderAction("NewBid", "Bids", Model); }
     </div>
 
-    <form id="newBid">
+    <div id="counter"></div>
+</div>
 
-        <div class="form-group">
-            <label>Bidder</label>
-            <select class="form-control" name="BidderId">
-                @foreach (var bidder in Model.ProductBidders)
-                {
-                    <option value="@bidder.Id">@bidder.FullName</option>
-                }
-            </select>
+<div id="winnerBid" hidden>
+    <div class="jumbotron">
+        <h1>Winner is:</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2 id="winnerName"></h2>
+            </div>
+            <div class="col-md-6">
+                <h2 id="winnerPrice"></h2>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Bid</label>
-            <input type="number" id="BidAmount" name="BidAmount" class="form-control" />
-        </div>
-
-        <input type="hidden" name="ProductId" value="@Model.Product.Id" />
-        <input type="hidden" name="ActualAmount" value="@Model.Product.ActualPrice" />
-
-        <button type="button" class="btn btn-success" id="addBid">Add</button>
-    </form>
+    </div>
 </div>
 
 <div id="bidsTable">
-    @{Html.RenderAction("Listing", "Bids", new { productId = Model.Product.Id}); }
+    @{Html.RenderAction("Listing", "Bids", new { productId = Model.Product.Id }); }
 </div>
 
 @section scripts
 {
     <script>
+
         $("#addBid").click(function () {
             $.ajax({
                 url: '@Url.Action("Bid", "Bids")',
@@ -54,7 +51,12 @@
             })
             .done(function (response) {
                 if (response.success) {
+                    stopTimer();
+                    timer();
                     GetBids();
+                }
+                else {
+                    alert(response.message);
                 }
             })
             .fail(function () {
@@ -63,7 +65,6 @@
         })
 
         function GetBids() {
-            debugger;
             $.ajax({
                 url: '@Url.Action("Listing", "Bids")',
                 type: 'Get',
@@ -74,6 +75,65 @@
             .done(function (response) {
                 $("#bidsTable").html(response);
             })
+        }
+
+        var timerValue;
+
+        function timer() {
+            $(function () {
+                var defaultTimer = 15, // Default amount of seconds if url variable is not found
+                    callback = function () {
+                        // Will be executed when the timer finishes
+                        $("#bid").hide();
+                        $.ajax({
+                            url: '@Url.Action("WinnerBid", "Bids", new { productId = Model.Product.Id})',
+                            type: 'Get'
+                        })
+                        .done(function (response) {
+                            $("#winnerBid").show();
+                            $("#winnerName").text(response.winnerName);
+                            $("#winnerPrice").text(response.winnerPrice);
+                        })
+                    };
+
+                var counter = 1,
+                    match = document.location.href.match(/[\?|&]timer=(\d+)/i),
+                    totalTime = match ? match[1] : defaultTimer;
+                var s;
+                timerValue = setInterval(function () {
+                    if (totalTime != -1 && !isNaN(totalTime)) {
+                        val = 'Time left: ' + (function () {
+                            var m = Math.floor(totalTime / 60);
+                            if (m < 10) {
+                                return '0'.concat(m);
+                            }
+                            else {
+                                return m;
+                            }
+                        })() + ':' + (function () {
+                            s = totalTime % 60;
+                            if (s < 10) {
+                                return '0'.concat(s);
+                            }
+                            else {
+                                return s;
+                            }
+                        })();
+
+                        $('#counter').html(val);
+                        totalTime--;
+                    }
+                    else {
+                        window.clearInterval(timer);
+                        timer = null;
+                        callback();
+                    }
+                }, 1000);
+            });
+        }
+
+        function stopTimer() {
+            window.clearInterval(timerValue);
         }
     </script>
 }
